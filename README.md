@@ -1,6 +1,6 @@
-# Shortcode Charts Js Plugin
+# Shortcode ChartJs Plugin
 
-The **Shortcode Chart.js** Plugin is for [Grav CMS](http://github.com/getgrav/grav). It is a shortcode extension that add support for Chart.js to your Grav website.
+Add Chart.js charts to your [Grav CMS](http://github.com/getgrav/grav). Depends on [ShortCode Core](https://github.com/getgrav/grav-plugin-shortcode-core) 
 
 ## Installation
 
@@ -64,7 +64,7 @@ chart:
 > `bkgndcolor`  - The default fill color used for data points (e.g. the color of the column in a bar chart)
 > `bordercolor` - The default border color used for data points (e.g. the border of a segment of a pie chart) 
 
-## Usage
+## Examples
 
 The shortcode is `[chartjs …]` - any chart you want to add to your page will start that way.
 
@@ -74,7 +74,7 @@ The following shortcode:
 
 ```
 [chartjs type="bar" datapoints="76,29,5,10" datalabels="Booked, Available, Reserved, Holidays"
- backgroundcolor3="orange" bordercolor3="yellow" responsive="false" legend="false" style="margin:25px;"][/chartjs]
+ backgroundcolor3="orange" bordercolor3="yellow" responsive="false" legend="false" style="margin:25px;" /]
 ```
 results in this chart:
 
@@ -100,7 +100,7 @@ The following shortcode:
  datalabels="Booked, Available, Reserved, Holidays" backgroundcolor1="rgb(35, 82, 124)"
  backgroundcolor2="rgb(66, 165, 245)" backgroundcolor3="rgb(255, 5, 5)" backgroundcolor4="rgb(50, 255, 5)"
  bordercolor1="rgb(33, 80, 120);" bordercolor2="rgba(54, 162, 235, 1)" bordercolor3="rgba(54, 162, 235, 1)"
- legend="false" responsive="false" titledisplay="true" style="float:left"][/chartjs]
+ legend="false" responsive="false" titledisplay="true" style="float:left" /]
 ```
 results in this chart:
 
@@ -112,14 +112,23 @@ We've also proved a `label="Oct. 2017"` value which shows above the chart in the
 
 #### Example #3
 
-The following shortcode:
+Note that Grav allows shortcodes to be multi-line, so if you find that cleaner you are free to do so,
+just avoid putting any completely blank lines or it will break the shortcode detection. 
+
+The following shortcode
+
 ```
-[chartjs name="piechart" width="300" height="300" type="pie" label="Oct. 2017" datapoints="76,29,5,10" 
- datalabels="Booked, Available, Reserved, Holidays" backgroundcolor1="rgb(35, 82, 124)" 
- backgroundcolor2="rgb(66, 165, 245)" backgroundcolor3="rgb(255, 5, 5)" backgroundcolor4="rgb(50, 255, 5)" 
- bordercolor1="rgb(33, 80, 120);" bordercolor2="rgba(54, 162, 235, 1)" bordercolor3="rgba(54, 162, 235, 1)" 
- legend="false" titledisplay="true" titleposition="bottom" responsive="false" style="clear:both;padding:15px 25%"]
-[/chartjs] 
+[chartjs name="piechart" width="300" height="300" type="pie" label="Oct. 2017" 
+datapoints="76,29,5,10" 
+datalabels="Booked, Available, Reserved, Holidays" 
+backgroundcolor1="rgb(35, 82, 124)" 
+backgroundcolor2="rgb(66, 165, 245)" 
+backgroundcolor3="rgb(255, 5, 5)" 
+backgroundcolor4="rgb(50, 255, 5)" 
+bordercolor1="rgb(33, 80, 120);" 
+bordercolor2="rgba(54, 162, 235, 1)" 
+bordercolor3="rgba(54, 162, 235, 1)" 
+ legend="false" titledisplay="true" titleposition="bottom" responsive="false" style="clear:both;padding:15px 25%" /]
 ```
 results in this chart:  
 ![Example #3](images/example03.png)
@@ -127,6 +136,14 @@ results in this chart:
 Here we've simple changed the type to `pie` and adjusted the `style` attributes to suit centered display in the enclosing block.
 
 Finally we added `titleposition="bottom"` so that the chart title is now below the pie chart.
+
+## Usage
+
+Beyond the main shortcode of `[chartjs …]`, here are the other shortcode attributes you can use: 
+
+* type - line, bar, piechart, TODO finish
+* backgroundcolor - Applies same color to all datasets e.g. `backgroundcolor=red` or `backgroundcolor=rgba(0, 0, 0, 0.1)`. To remove background entirely (e.g. where it implies fill area), use `rgba(0, 0, 0, 0)`
+* backgroundcolor[0-9]* - Apply color to one dataset
 
 ## Credits
 
@@ -137,4 +154,7 @@ This Grav Shortcode Plugin is only possible because of the awesome work of the [
  - [ ] More Chart.js options
  - [ ] Load data from file
  - [ ] Load data from URL 
+ 
+ - Stop crashing preview pane
+ - Allow multiple graphs on one page e.g. uuid for graph div
 
