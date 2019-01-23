@@ -113,22 +113,25 @@ We've also proved a `label="Oct. 2017"` value which shows above the chart in the
 #### Example #3
 
 Note that Grav allows shortcodes to be multi-line, so if you find that cleaner you are free to do so,
-just avoid putting any completely blank lines or it will break the shortcode detection. 
+just avoid putting any completely blank lines or it will break the shortcode detection. Grav also allows 
+shortcodes to have multiple spaces inbetween tags, so you can easily indent lines if it helps you
+prettify the shortcode in your markdown. 
 
 The following shortcode
 
 ```
 [chartjs name="piechart" width="300" height="300" type="pie" label="Oct. 2017" 
-datapoints="76,29,5,10" 
-datalabels="Booked, Available, Reserved, Holidays" 
-backgroundcolor1="rgb(35, 82, 124)" 
-backgroundcolor2="rgb(66, 165, 245)" 
-backgroundcolor3="rgb(255, 5, 5)" 
-backgroundcolor4="rgb(50, 255, 5)" 
-bordercolor1="rgb(33, 80, 120);" 
-bordercolor2="rgba(54, 162, 235, 1)" 
-bordercolor3="rgba(54, 162, 235, 1)" 
- legend="false" titledisplay="true" titleposition="bottom" responsive="false" style="clear:both;padding:15px 25%" /]
+    datapoints="76,29,5,10" 
+    datalabels="Booked, Available, Reserved, Holidays" 
+    backgroundcolor1="rgb(35, 82, 124)" 
+    backgroundcolor2="rgb(66, 165, 245)" 
+    backgroundcolor3="rgb(255, 5, 5)" 
+    backgroundcolor4="rgb(50, 255, 5)" 
+    bordercolor1="rgb(33, 80, 120);" 
+    bordercolor2="rgba(54, 162, 235, 1)" 
+    bordercolor3="rgba(54, 162, 235, 1)" 
+    legend="false" titledisplay="true" titleposition="bottom" 
+    responsive="false" style="clear:both;padding:15px 25%" /]
 ```
 results in this chart:  
 ![Example #3](images/example03.png)
