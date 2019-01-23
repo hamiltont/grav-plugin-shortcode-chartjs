@@ -158,8 +158,9 @@ This Grav Shortcode Plugin is only possible because of the awesome work of the [
 
  - [ ] More Chart.js options
  - [ ] Load data from file
- - [ ] Load data from URL 
- 
+ - [ ] Load data from URL  
  - Stop crashing preview pane
  - Allow multiple graphs on one page e.g. uuid for graph div
+ - Update chart.js (pack into vendor)
+ - Add CDN URL parameter and default
 
