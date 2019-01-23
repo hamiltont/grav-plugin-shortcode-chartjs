@@ -142,13 +142,20 @@ Finally we added `titleposition="bottom"` so that the chart title is now below t
 
 ## Usage
 
-Beyond the main shortcode of `[chartjs …]`, here are the other shortcode attributes you can use.  
+Beyond the main shortcode of `[chartjs …]`, here are the other shortcode attributes you can use.
+
+A note on double-quotes - most params support a no-quote style e.g. `width=300`, but purists will claim you should
+always use them. Our recommendation is to go without quotes (after all, shortcodes are for convenience) but 
+add them in if you run into an issue
 
 * type - line, bar, piechart, TODO finish
 * backgroundcolor - Applies same color to all datasets e.g. `backgroundcolor=red` or `backgroundcolor=rgba(0, 0, 0, 0.1)`. To remove background entirely (e.g. where it implies fill area), use `rgba(0, 0, 0, 0)`. If you do not set this, the default from the configuration will be used. 
 * backgroundcolor[0-9]* - Apply color to one dataset. If you do not set `backgroundcolor`, then this will be used. If you do not set this, then the default from the configuration will be used. 
 * bordercolor - Applies same border color to all datasets e.g. `bordercolor=red`. If you do not set this, the default from the configuration will be used. 
 * bordercolor[0-9]* - Apply border color to one dataset. If you do not set `bordercolor`, then this will be used. If you do not set this, then the default from the configuration will be used. 
+* width - set the width e.g. `300`. See `responsive` param
+* height - set the height. Also see `responsive` param
+* responsive - true (default)/false. See https://www.chartjs.org/docs/latest/general/responsive.html
 
 ## Credits
 
