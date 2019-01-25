@@ -3,6 +3,13 @@
 namespace Grav\Plugin\Shortcodes;
 
 use Thunder\Shortcode\Shortcode\ShortcodeInterface;
+use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Yaml\Exception\ParseException;
+use \Exception;
+
+function jlog($msg) {
+    echo '<script>console.log("' . $msg . '")</script>';
+}
 
 class ChartjsShortcode extends Shortcode
 {
@@ -15,6 +22,7 @@ class ChartjsShortcode extends Shortcode
 
     public function init()
     {
+        // TODO pull processing into distinct function ...
         $this->shortcode->getHandlers()->add('chartjs', function(ShortcodeInterface $sc) {
             // Get plugin settings
             $this->pluginConfig    = $this->config->get('plugins.shortcode-chartjs');
@@ -36,14 +44,29 @@ class ChartjsShortcode extends Shortcode
 
             // @todo: Add support for data and config from URL/path
 
-            // Add our canvas
+            // Add canvas
             $output = $this->buildCanvas($sc);
 
-            // Configure our JS
+            // Add JS libary assets
             $this->shortcode->addAssets('js', '//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js');
-            $chartjs = $this->buildChartJS($sc);
-            $output = $output . "<script>$chartjs</script>";
-
+            
+            try {
+                // Build chart JS
+                // TODO error-fast or fallback to different data sources?
+                $id = $sc->getParameter('id', null);
+                $contents = $sc->getContent();
+                if (isset($contents) && $contents != '') {
+                    $chartjs = $this->buildChartWithContents($sc, $contents);
+                } elseif (isset($id)) {
+                    $chartjs = $this->buildChartWithFrontMatter($sc, $id);
+                } else {
+                    $chartjs = $this->buildChartWithDatapoints($sc);
+                }
+                
+                $output = $output . "<script>$chartjs</script>";
+            } catch (Exception $e) {
+                $output = "<p>" . $e->getMessage() . "</p>";
+            }
 
             // Return canvas etc
             return $output;
@@ -85,7 +108,35 @@ class ChartjsShortcode extends Shortcode
         return $jsStringLiteralArray;
     }
 
-    private function buildChartJS($sc)
+    private function buildChartWithContents($sc, $content)
+    {
+
+        # TODO - Fix the 'disable markdown' requirement for using this approach
+        # 
+        # See https://github.com/getgrav/grav-plugin-shortcode-core/issues/38
+        $header = $this->grav['page']->header();
+        $header = new \Grav\Common\Page\Header((array) $header);
+        $markdown = $header->get('process.markdown');
+        var_dump($markdown);
+        if (is_null($markdown) || $markdown == 'true' || $markdown == TRUE)
+            throw new Exception("Disable markdown processing on this page to manually embed chart data");
+
+        try {
+            $content = Yaml::parse($content);
+        } catch (ParseException $exception) {
+            throw new Exception("Unable to parse YAML - " . $exception->getMessage());
+        }
+
+        $data = json_encode($content);
+        if (is_null($data) || $data == FALSE)
+            throw new Exception("Could not encode chartjs.$id data as JSON");
+
+        $canvasName      = $sc->getParameter('name',   $this->defCanvas);
+        return "new Chart(document.getElementById(\"$canvasName\"), $data);";
+    }
+
+
+    private function buildChartWithDatapoints($sc)
     {
         // Chart details
         $type            = $sc->getParameter('type',  'bar');

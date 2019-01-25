@@ -1,0 +1,8 @@
+{
+  "require": {
+    	"symfony/yaml": "4.2.*"
+    },
+  "config": {
+    	"optimize-autoloader": true
+  }
+}

@@ -22,6 +22,8 @@ class ShortcodeChartjsPlugin extends Plugin
      */
     public static function getSubscribedEvents()
     {
+        require_once(__DIR__.'/vendor/autoload.php');
+        
         return [ 'onShortcodeHandlers' => ['onShortcodeHandlers', 0] ];
     }
 
