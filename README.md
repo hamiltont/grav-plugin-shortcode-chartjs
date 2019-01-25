@@ -20,11 +20,11 @@ This will install the Shortcode Charts Js plugin into your `/user/plugins` direc
 
 ### Manual Installation (if you're sure of what you're doing)
 
-To install this plugin, just download the zip version of this repository and unzip it under `/your/site/grav/user/plugins`. Then, rename the folder to `shortcode-chartsjs`. You can find these files on [GitHub](https://github.com/craig-phillips/grav-plugin-shortcode-chartjs) or via [GetGrav.org](http://getgrav.org/downloads/plugins#extras).
+To install this plugin, just download the zip version of this repository and unzip it under `/your/site/grav/user/plugins`. Then, rename the folder to `shortcode-chartjs`. You can find these files on [GitHub](https://github.com/craig-phillips/grav-plugin-shortcode-chartjs) or via [GetGrav.org](http://getgrav.org/downloads/plugins#extras).
 
 You should now have all the plugin files under
 
-    /your/site/grav/user/plugins/shortcode-chartsjs
+    /your/site/grav/user/plugins/shortcode-chartjs
 	
 > NOTE: This plugin is a modular component for Grav which requires [Grav](http://github.com/getgrav/grav) and the [Error](https://github.com/getgrav/grav-plugin-error) and [Problems](https://github.com/getgrav/grav-plugin-problems) to operate.
 
@@ -36,7 +36,7 @@ The plugin comes with sensible default values, but you can change them as requir
 
 ### via GPM or Manually 
 
-Before configuring this plugin, you should copy the `user/plugins/shortcode-charts-js/shortcode-chartjs.yaml` to `user/config/plugins/shortcode-chartjs.yaml` and only edit that copy.
+Before configuring this plugin, you should copy the `user/plugins/shortcode-chartjs/shortcode-chartjs.yaml` to `user/config/plugins/shortcode-chartjs.yaml` and only edit that copy.
 
 Here is the default configuration and an explanation of available options:
 
@@ -66,15 +66,19 @@ chart:
 
 ## Examples
 
-The shortcode is `[chartjs …]` - any chart you want to add to your page will start that way.
+The shortcode is `[chartjs …]` - any chart you want to add to your page will start that way. Note that Grav allows shortcodes to be multi-line, so if you find that cleaner you are free to do it, just avoid putting any completely blank lines or it will break the shortcode detection. Grav also allows 
+shortcodes to have multiple spaces inbetween tags, so you can 
+easily indent lines if it helps you prettify the shortcode in your markdown. 
 
 #### Example #1
 
 The following shortcode:
 
 ```
-[chartjs type="bar" datapoints="76,29,5,10" datalabels="Booked, Available, Reserved, Holidays"
- backgroundcolor3="orange" bordercolor3="yellow" responsive="false" legend="false" style="margin:25px;" /]
+[chartjs type=bar
+    datapoints="76,29,5,10" datalabels="Booked, Available, Reserved, Holidays"
+    backgroundcolor3=orange bordercolor3=yellow
+    responsive=false legend=false style="margin:25px;" /]
 ```
 results in this chart:
 
@@ -84,7 +88,7 @@ This first example is a simple bar chart (`type="bar"`) with four (4) data point
 
 We specify a set of labels one for each data point, also separated by commas — `datalabels="Booked, Available, Reserved, Holidays"`
 
-Notice that we override the background and border colors for data point three (3) — `backgroundcolor3="orange" bordercolor3="yellow"`, all of the other data points get the default colors set in the plugins configuration. You can use any valid HTML color entries like `red` or `#ff0000` or `rgb(255,0,0)` or `rgba(255,0,0, 0.5)`
+Notice that we override the background and border colors for data point three (3) — `backgroundcolor3=orange bordercolor3=yellow`, all of the other data points get the default colors set in the plugins configuration. You can use any valid HTML color entries like `red` or `#ff0000` or `rgb(255,0,0)` or `rgba(255,0,0,0.5)`
 
 We set the `responsive` flag to `false` (it defaults to `true`) so that the size is fixed at the default settings in the plugin, otherwise it will resize to fit the width of the container element.
 
@@ -94,28 +98,25 @@ Finally we add a basic HTML `style` attribute to give us some space around the c
 
 #### Example #2
 
+In this example we specify the width and height `width=350 height=200` rather than using the default values. We also add a label above the chart.
+
 The following shortcode:
 ```
-[chartjs name="bartest" width="350" height="200" type="bar" label="Oct. 2017" datapoints="76,29,5,10"
- datalabels="Booked, Available, Reserved, Holidays" backgroundcolor1="rgb(35, 82, 124)"
- backgroundcolor2="rgb(66, 165, 245)" backgroundcolor3="rgb(255, 5, 5)" backgroundcolor4="rgb(50, 255, 5)"
- bordercolor1="rgb(33, 80, 120);" bordercolor2="rgba(54, 162, 235, 1)" bordercolor3="rgba(54, 162, 235, 1)"
- legend="false" responsive="false" titledisplay="true" style="float:left" /]
+[chartjs type=bar 
+  name=bartest width=350 height=200 label="Oct. 2017" titledisplay=true
+  datapoints="76,29,5,10"
+  datalabels="Booked, Available, Reserved, Holidays" 
+  backgroundcolor1="rgb(35, 82, 124)"  bordercolor1="rgb(33, 80, 120)"
+  backgroundcolor2="rgb(66, 165, 245)" bordercolor2="rgba(54, 162, 235, 1)"
+  backgroundcolor3="rgb(255, 5, 5)"    bordercolor3="rgba(54, 162, 235, 1)"
+  backgroundcolor4="rgb(50, 255, 5)"
+  legend="false" responsive="false" style="float:left" /]
 ```
 results in this chart:
 
 ![Example #2](images/example02.png)
 
-In this example we've specifid the width and height `width="350" height="200"` rather than using the default values from the plugin.
-
-We've also proved a `label="Oct. 2017"` value which shows above the chart in the `top` position.
-
 #### Example #3
-
-Note that Grav allows shortcodes to be multi-line, so if you find that cleaner you are free to do so,
-just avoid putting any completely blank lines or it will break the shortcode detection. Grav also allows 
-shortcodes to have multiple spaces inbetween tags, so you can easily indent lines if it helps you
-prettify the shortcode in your markdown. 
 
 The following shortcode
 
@@ -166,6 +167,7 @@ This Grav Shortcode Plugin is only possible because of the awesome work of the [
  - [ ] More Chart.js options
  - [ ] Load data from file
  - [ ] Load data from URL  
+ - more than one dataset
  - Stop crashing preview pane
  - Allow multiple graphs on one page e.g. uuid for graph div
  - Update chart.js (pack into vendor)
